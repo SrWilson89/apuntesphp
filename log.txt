@@ -1,0 +1,2 @@
+[17-07-2025 08:42:28] [PELIGRO] Hemos creado el primer registro del log.
+[17-07-2025 08:42:28] [INFO] Hemos añadido una nueva línea.

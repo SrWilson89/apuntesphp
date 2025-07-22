@@ -1,0 +1,20 @@
+¿Cuál es la capital de Francia?|París,Madrid, Londres,Berlín|0
+¿En qué año llegó el hombre a la luna?|1969,1972,1965,1980|0
+¿Cuál es el planeta más grande del sistema solar?|Marte,Júpiter,Saturno,Tierra|1
+¿Quién escribió "Don Quijote"?|Cervantes,García Márquez,Lope de Vega,Quevedo|0
+¿Cuál es el elemento más abundante en la Tierra?|Oxígeno,Hierro,Carbono,Silicio|0
+¿En qué continente está Egipto?|África,Asia,Europa,Oceanía|0
+¿Cuál es el río más largo del mundo?|Nilo,Amazonas,Misisipi,Yangtsé|1
+¿Quién pintó la Mona Lisa?|Da Vinci,Picasso,Van Gogh,Michelangelo|0
+¿Cuál es la moneda de Japón?|Yen,Euro,Dólar,Won|0
+¿En qué año comenzó la Segunda Guerra Mundial?|1939,1945,1914,1929|0
+¿Cuál es el animal más rápido en tierra?|Guepardo,León,Tigre,Águila|0
+¿Quién descubrió América?|Colón,Magallanes,Pizarro,Vespucci|0
+¿Cuál es la capital de Brasil?|Río de Janeiro,Brasilia,São Paulo,Salvador|1
+¿En qué año cayó el Muro de Berlín?|1989,1991,1985,1979|0
+¿Cuál es el océano más grande?|Pacífico,Atlántico,Índico,Ártico|0
+¿Quién escribió "Cien años de soledad"?|García Márquez,Borges,Vargas Llosa,Rulfo|0
+¿Cuál es el metal más caro?|Oro,Platino,Rodio,Paladio|2
+¿En qué país está Machu Picchu?|Perú,Bolivia,Chile,Argentina|0
+¿Cuál es la montaña más alta del mundo?|Everest,K2,Kilimanjaro,Aconcagua|0
+¿Quién fue el primer presidente de EE.UU.?|Washington,Lincoln,Jefferson,Adams|0

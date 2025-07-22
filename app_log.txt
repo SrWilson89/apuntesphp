@@ -1,0 +1,4 @@
+[2025-07-16 14:36:34] [INFO]: El usuario 'admin' ha iniciado sesión correctamente.
+[2025-07-16 14:36:34] [ADVERTENCIA]: Se ha detectado un intento de acceso no autorizado desde IP 192.168.1.10.
+[2025-07-16 14:36:34] [ERROR]: La conexión a la base de datos ha fallado. Código de error: 1045.
+[2025-07-16 14:36:34] [INFO]: Se ha procesado un pedido con ID #12345.

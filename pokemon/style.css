@@ -1,0 +1,46 @@
+body {
+    font-family: 'Press Start 2P', cursive; /* Fuente pixelada, si está disponible */
+    display: flex;
+    flex-direction: column; /* Para apilar el juego y los controles */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #2c3e50; /* Fondo oscuro */
+    margin: 0;
+    overflow: hidden; /* Evita barras de desplazamiento si el mapa es más grande */
+    color: #ecf0f1;
+}
+
+/* Importar una fuente pixelada si no la tienes localmente */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+
+.game-container {
+    position: relative; /* Contenedor para el mapa y el jugador */
+    border: 4px solid #34495e; /* Borde del "marco" del juego */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+    overflow: hidden; /* Asegura que los tiles no se salgan */
+    image-rendering: pixelated; /* Mantiene los píxeles nítidos en zoom */
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+#game-map {
+    position: relative;
+    /* Ancho y alto se establecerán con JS */
+    background-color: #000; /* Fondo por si no hay tiles */
+}
+
+.tile {
+    position: absolute;
+    width: 32px; /* TILE_SIZE */
+    height: 32px; /* TILE_SIZE */
+    background-size: cover; /* Asegura que la imagen cubra el tile */
+    /* Aquí se definirán los fondos para cada tipo de tile */
+}
+
+/* --- Estilos para los tipos de tiles --- */
+.tile.grass {
+    background-image: url('data:image/png;base64,TU_IMAGEN_BASE64_COMPLETA');
+}

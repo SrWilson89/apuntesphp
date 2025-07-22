@@ -1,0 +1,2 @@
+Este es el contenido que se escribirá en el archivo.
+Una segunda línea de texto.

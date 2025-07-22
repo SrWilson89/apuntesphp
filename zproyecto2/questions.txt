@@ -1,0 +1,20 @@
+¿Cuál es el lenguaje de programación en el que estamos trabajando?::Java::Python::PHP::C++::PHP
+¿Qué etiqueta HTML se usa para un salto de línea?::br::lb::break::line::br
+¿Cuál de los siguientes no es un sistema operativo?::Linux::Windows::Photoshop::macOS::Photoshop
+¿Qué significa CSS?::Cascading Style Sheets::Creative Style Solutions::Computer Style Syntax::Compact Styling System::Cascading Style Sheets
+¿Cuál es el planeta más grande de nuestro sistema solar?::Marte::Júpiter::Venus::Saturno::Júpiter
+¿Cuál es la capital de España?::Barcelona::Madrid::Valencia::Sevilla::Madrid
+¿Qué año comenzó la Segunda Guerra Mundial?::1939::1945::1914::1918::1939
+¿Quién escribió "Don Quijote de la Mancha"?::Miguel de Cervantes::Lope de Vega::Federico García Lorca::Gabriel García Márquez::Miguel de Cervantes
+¿Cuál es el elemento químico más abundante en la Tierra?::Oxígeno::Silicio::Aluminio::Hierro::Oxígeno
+¿Qué animal es conocido como el "rey de la selva"?::Tigre::León::Elefante::Gorila::León
+¿Qué instrumento musical tiene cuerdas y se toca con un arco?::Guitarra::Piano::Violín::Batería::Violín
+¿Cuál es el río más largo del mundo?::Nilo::Amazonas::Yangtsé::Mississippi::Amazonas
+¿De qué país es originaria la pizza?::Francia::Italia::Grecia::España::Italia
+¿Cuántos lados tiene un hexágono?::Cinco::Seis::Siete::Ocho::Seis
+¿Quién pintó la Mona Lisa?::Van Gogh::Picasso::Leonardo da Vinci::Miguel Ángel::Leonardo da Vinci
+¿Cuál es el color primario que falta en el arcoíris tradicional?::Rojo::Azul::Verde::Amarillo::Verde
+¿Qué metal es líquido a temperatura ambiente?::Hierro::Cobre::Mercurio::Oro::Mercurio
+¿Qué deporte se juega en un diamante?::Fútbol::Baloncesto::Béisbol::Tenis::Béisbol
+¿Cuál es el océano más grande del mundo?::Atlántico::Índico::Ártico::Pacífico::Pacífico
+¿Qué animal pone los huevos más grandes?::Gallina::Avestruz::Serpiente::Cocodrilo::Avestruz

@@ -1,0 +1,123 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f7f6;
+    margin: 0;
+    color: #333;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 35px 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 450px;
+}
+
+h1 {
+    color: #2c3e50;
+    margin-bottom: 30px;
+    font-size: 1.8em;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group input[type="number"] {
+    width: calc(100% - 20px);
+    padding: 12px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box; /* Para incluir padding en el ancho */
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2); /* Hace el checkbox un poco más grande */
+}
+
+.generate-button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.generate-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.password-output {
+    margin-top: 30px;
+    background-color: #e9ecef;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px dashed #ced4da;
+    text-align: left;
+}
+
+.password-output label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #495057;
+}
+
+.password-output input[type="text"] {
+    width: calc(100% - 75px); /* Ajusta para dejar espacio para el botón Copiar */
+    padding: 12px 10px;
+    border: 1px solid #cce5ff; /* Borde suave azul */
+    background-color: #eaf6ff; /* Fondo muy claro azul */
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #007bff;
+    text-align: center;
+    cursor: text;
+    user-select: all; /* Permite seleccionar el texto fácilmente */
+}
+
+.copy-button {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 10px;
+    vertical-align: middle; /* Alinea con el campo de texto */
+}
+
+.copy-button:hover {
+    background-color: #218838;
+}

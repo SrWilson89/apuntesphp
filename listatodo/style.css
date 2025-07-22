@@ -1,0 +1,172 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f2f5; /* Fondo gris claro */
+    margin: 0;
+    color: #333;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 35px 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    box-sizing: border-box;
+}
+
+h1 {
+    color: #2c3e50;
+    margin-bottom: 30px;
+    font-size: 2.2em;
+}
+
+.info-message {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 0.95em;
+}
+
+/* --- Formulario de Añadir/Editar Tareas --- */
+#task-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+#task-input {
+    flex-grow: 1; /* Ocupa el espacio disponible */
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    outline: none; /* Elimina el contorno al enfocar */
+    transition: border-color 0.2s ease;
+}
+
+#task-input:focus {
+    border-color: #007bff;
+}
+
+#form-submit-button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#form-submit-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+/* --- Lista de Tareas --- */
+.task-list {
+    text-align: left;
+}
+
+.no-tasks {
+    color: #666;
+    font-style: italic;
+    padding: 20px;
+    border: 1px dashed #e0e0e0;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    min-height: 20px; /* Asegura altura mínima incluso sin texto */
+}
+
+.task-item.pending {
+    background-color: #e0f7fa; /* Azul muy claro para pendientes */
+    border: 1px solid #80deea; /* Borde azul para pendientes */
+    color: #006064; /* Texto azul oscuro para pendientes */
+}
+
+.task-item.completed {
+    background-color: #ffe0b2; /* Naranja muy claro para realizadas */
+    border: 1px solid #ffab40; /* Borde naranja para realizadas */
+    color: #e65100; /* Texto naranja oscuro para realizadas */
+    text-decoration: line-through; /* Tachado para realizadas */
+    opacity: 0.8;
+}
+
+.task-text {
+    flex-grow: 1;
+    font-size: 1.1em;
+    word-break: break-word; /* Permite que el texto largo se rompa */
+}
+
+.task-actions {
+    display: flex;
+    gap: 8px; /* Espacio entre botones */
+    margin-left: 15px; /* Espacio entre texto y botones */
+}
+
+.task-actions button,
+.task-actions a {
+    background: none;
+    border: none;
+    font-size: 1.3em;
+    cursor: pointer;
+    padding: 5px; /* Espacio alrededor del icono */
+    border-radius: 4px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    text-decoration: none; /* Para los enlaces (Marcar/Deshacer) */
+    display: flex; /* Para centrar el icono si es necesario */
+    justify-content: center;
+    align-items: center;
+}
+
+.edit-btn {
+    color: #ffc107; /* Amarillo para editar */
+}
+.edit-btn:hover {
+    background-color: #fff3cd;
+    transform: translateY(-1px);
+}
+
+.complete-btn {
+    color: #28a745; /* Verde para completar */
+}
+.complete-btn:hover {
+    background-color: #d4edda;
+    transform: translateY(-1px);
+}
+
+.undo-btn {
+    color: #6f42c1; /* Púrpura para deshacer */
+}
+.undo-btn:hover {
+    background-color: #e6e6fa;
+    transform: translateY(-1px);
+}
+
+.delete-btn {
+    color: #dc3545; /* Rojo para borrar */
+}
+.delete-btn:hover {
+    background-color: #f8d7da;
+    transform: translateY(-1px);
+}

@@ -1,0 +1,137 @@
+---
+
+1.  **¿Qué es la Programación Orientada a Objetos (POO) aquí?**
+    Imagina que quieres crear un test con muchas preguntas. En lugar de tener la información de cada pregunta (el texto, las opciones, la respuesta correcta) suelta por ahí, la POO nos permite agruparla. Pensamos en cada "pregunta" como un "objeto" que tiene sus propias características y comportamientos.
+
+---
+
+2.  **Archivo: `Question.php` (La "plantilla" para tus preguntas)**
+
+    * **Propósito:** Este archivo define cómo será una "Pregunta" en tu test. Es como el molde para hacer galletas, donde cada galleta será una pregunta específica.
+    * **Código clave:**
+        ```php
+        class Question { // Aquí defines tu "molde" llamado 'Question'
+            public $text;    // Cada pregunta tendrá un texto (ej: "¿Cuál es la capital...?")
+            public $options; // Cada pregunta tendrá varias opciones de respuesta
+            public $correct; // Cada pregunta tendrá un índice de la respuesta correcta
+
+            public function __construct($text, $options, $correct) {
+                // Esto es como el "constructor" de la galleta. Cuando creas una nueva pregunta,
+                // le pasas el texto, las opciones y la respuesta correcta, y la pregunta se "construye" con esos datos.
+                $this->text = $text;
+                $this->options = $options;
+                $this->correct = (int)$correct; // Aseguramos que 'correct' sea un número entero.
+            }
+        }
+        ```
+    * **En resumen:** `Question.php` es el "plano" que nos dice cómo debe ser una pregunta en nuestro sistema.
+
+---
+
+3.  **Archivo: `Test.php` (El "motor" de tu test)**
+
+    * **Propósito:** Este archivo define cómo funciona el test en sí. No es una pregunta, sino el objeto que controla el avance, guarda las respuestas y calcula la puntuación.
+    * **Código clave:**
+        ```php
+        class Test { // Aquí defines tu "molde" llamado 'Test'
+            public $currentQuestion = 0; // Lleva la cuenta de en qué pregunta estamos (empieza en la 0)
+            public $answers = [];        // Aquí guardaremos las respuestas del jugador
+            public $startTime;           // Para saber cuándo empezó el test y calcular el tiempo total
+
+            public function __construct() {
+                // Cuando el test se crea o "inicia", guardamos el momento actual (para el tiempo).
+                $this->startTime = time();
+            }
+
+            public function answer($answer) {
+                // Esta es una "acción" o "comportamiento" del test.
+                // Cuando el jugador responde, esta función guarda su respuesta
+                // y avanza a la siguiente pregunta.
+                $this->answers[$this->currentQuestion] = (int)$answer;
+                $this->currentQuestion++;
+            }
+
+            public function getScore($questions) {
+                // Otra "acción" del test.
+                // Cuando el test termina, esta función compara las respuestas del jugador
+                // con las respuestas correctas de las preguntas (que le pasamos)
+                // y devuelve cuántas ha acertado.
+                $score = 0;
+                foreach ($this->answers as $i => $answer) {
+                    if ($answer === $questions[$i]->correct) {
+                        $score++;
+                    }
+                }
+                return $score;
+            }
+        }
+        ```
+    * **En resumen:** `Test.php` es el "cerebro" que gestiona el progreso, las respuestas y la puntuación de la persona que hace el test.
+
+---
+
+4.  **Archivo: `questions.txt` (Tus preguntas de verdad)**
+
+    * **Propósito:** Este archivo es una simple lista de tus preguntas. Cada línea es una pregunta con un formato específico.
+    * **Formato:** `Pregunta|Opción1,Opción2,Opción3,Opción4|ÍndiceDeLaRespuestaCorrecta`
+        * `|` se usa para separar el texto de la pregunta, las opciones y la respuesta correcta.
+        * `,` se usa para separar las diferentes opciones.
+        * El índice de la respuesta correcta empieza en `0` (la primera opción es `0`, la segunda `1`, y así).
+    * [cite_start]**Ejemplo:** `¿Cuál es la capital de Francia?|París,Madrid, Londres,Berlín|0` [cite: 1]
+        * Texto: "¿Cuál es la capital de Francia?"
+        * Opciones: "París", "Madrid", "Londres", "Berlín"
+        * Correcta: `0` (que es "París")
+    * **Importante:** Este archivo es donde añades, quitas o modificas tus preguntas.
+
+---
+
+5.  **Archivo: `styles.css` (La "apariencia" de tu test)**
+
+    * **Propósito:** Este archivo no tiene nada que ver con la POO ni la lógica del test, pero es crucial para que se vea bonito. Le dice al navegador cómo mostrar los elementos (colores, tamaños, fuentes, etc.).
+    * **Ejemplo:**
+        ```css
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif; /* Tipo de letra */
+            background: linear-gradient(135deg, #74ebd5, #acb6e5); /* Fondo degradado */
+            /* ...y muchas otras reglas para que todo se vea bien. */
+        }
+        ```
+    * **En resumen:** `styles.css` es como el "diseñador de interiores" de tu página web.
+
+---
+
+6.  **Archivo: `scores.txt` (Donde se guardan los resultados)**
+
+    * **Propósito:** Un archivo simple de texto donde se registran los resultados de cada jugador que termina el test.
+    * **Formato:** `Nombre,Aciertos,Porcentaje,TiempoEnSegundos`
+    * [cite_start]**Ejemplo:** `wil,0,0%,12 segundos` [cite: 3]
+    * **¿Quién lo escribe?** La lógica en `index.php` (lo veremos ahora) es la encargada de añadir una nueva línea a este archivo cada vez que alguien termina el test.
+
+---
+
+7.  **Archivo: `index.php` (El "director de orquesta" de todo)**
+
+    * **Propósito:** Este es el archivo principal que se ejecuta cuando alguien entra a tu página. Coordina todo: lee las preguntas, gestiona al jugador, muestra las preguntas, procesa las respuestas y presenta los resultados.
+    * **Pasos clave que hace:**
+
+        * **`session_start();`**: ¡Importante! Esto activa las "sesiones" en PHP. Imagina que es como un bloc de notas que el servidor recuerda para cada visitante. Nos permitirá guardar información entre una visita y la siguiente (por ejemplo, si el jugador ya ha puesto su nombre o en qué pregunta va).
+        * **`require_once 'Test.php';` y `require_once 'Question.php';`**: Le dice a PHP: "¡Oye! Necesito las definiciones de `Test` y `Question` para poder usarlas aquí". Es como traer los "moldes" que definimos antes.
+        * **Cargar preguntas:** Lee el archivo `questions.txt`, línea por línea, y con cada línea, crea un nuevo objeto `Question` (usando el "molde" `Question.php`). Luego, las mezcla aleatoriamente (`shuffle`) y elige solo 10.
+        * **Gestionar al jugador (Nombre y Cookies):**
+            * Usa "cookies" (pequeños archivos que tu navegador guarda) para recordar el nombre del jugador (`player`) y el estado actual del test (`test`).
+            * Si no hay nombre, pide al usuario que lo introduzca en un formulario. Una vez introducido, guarda el nombre en una cookie y el momento de inicio del test.
+        * **Procesar respuesta:** Si el jugador ha enviado una respuesta a una pregunta:
+            * Llama a la función `answer()` de tu objeto `Test` para registrar la respuesta.
+            * Guarda el estado actualizado del objeto `Test` en una cookie (serializado y codificado en base64 para poder almacenarlo).
+        * **Reiniciar test:** Si el jugador pulsa "Reiniciar", crea un nuevo objeto `Test` (borrando el anterior) y las cookies relacionadas.
+        * **Mostrar pregunta o resultados:**
+            * Si aún quedan preguntas (el `currentQuestion` del objeto `Test` es menor que 10): Muestra la pregunta actual y sus opciones como botones de radio.
+            * Si ya se han respondido las 10 preguntas:
+                * Calcula la puntuación usando `getScore()` de tu objeto `Test`.
+                * Calcula el porcentaje y el tiempo.
+                * [cite_start]¡Guarda los resultados en `scores.txt`! [cite: 3]
+                * Muestra los resultados en pantalla.
+                * Borra las cookies del test y del jugador, para que la próxima vez tenga que empezar de nuevo.
+        * **HTML y CSS:** Todo el `echo` de código HTML (`<!DOCTYPE html>`, `<h1>`, `<form>`, etc.) es para construir la página web que ves en el navegador, y el `styles.css` le da el diseño.
+
+---

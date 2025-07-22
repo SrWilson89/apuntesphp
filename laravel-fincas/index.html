@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laravel Fincas - Proyecto Backend</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            color: white;
+            font-weight: bold;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section h2 {
+            color: #34495e;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+        
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .feature {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .feature h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .alert {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .alert-info {
+            background: #d1ecf1;
+            border-color: #bee5eb;
+            color: #0c5460;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 6px;
+            margin: 10px 10px 10px 0;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+        }
+        
+        .btn-secondary {
+            background: #95a5a6;
+        }
+        
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🏡</div>
+            <h1>Laravel Fincas</h1>
+            <p class="subtitle">Sistema de Gestión de Fincas y Propietarios</p>
+        </div>
+
+        <div class="alert alert-info">
+            <strong>ℹ️ Información:</strong> Este es un proyecto backend de Laravel. Para ejecutarlo necesitas un entorno PHP local o un servidor que soporte Laravel.
+        </div>
+
+        <div class="section">
+            <h2>📋 Características del Proyecto</h2>
+            <div class="feature-list">
+                <div class="feature">
+                    <h3>🏠 Gestión de Fincas</h3>
+                    <p>CRUD completo para administrar fincas con validaciones robustas y relaciones.</p>
+                </div>
+                <div class="feature">
+                    <h3>👥 Gestión de Propietarios</h3>
+                    <p>Sistema completo de propietarios con validación de emails únicos.</p>
+                </div>
+                <div class="feature">
+                    <h3>🔗 Relaciones</h3>
+                    <p>Relación uno-a-muchos entre propietarios y fincas implementada con Eloquent.</p>
+                </div>
+                <div class="feature">
+                    <h3>✅ Validaciones</h3>
+                    <p>Form Requests con validaciones personalizadas y mensajes en español.</p>
+                </div>
+                <div class="feature">
+                    <h3>🛡️ Seguridad</h3>
+                    <p>Protección contra SQL injection y validación de datos de entrada.</p>
+                </div>
+                <div class="feature">
+                    <h3>📱 API REST</h3>
+                    <p>Endpoints API para integración con aplicaciones frontend.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🚀 Instalación Local</h2>
+            <p>Para ejecutar este proyecto Laravel en tu entorno local:</p>
+            
+            <div class="code-block">
+# Clonar el repositorio
+git clone [URL_DEL_REPOSITORIO]
+cd laravel-fincas
+
+# Instalar dependencias PHP
+composer install
+
+# Configurar entorno
+cp .env.example .env
+php artisan key:generate
+
+# Configurar base de datos en .env
+# DB_CONNECTION=mysql
+# DB_HOST=127.0.0.1
+# DB_PORT=3306
+# DB_DATABASE=laravel_fincas
+# DB_USERNAME=tu_usuario
+# DB_PASSWORD=tu_password
+
+# Ejecutar migraciones
+php artisan migrate
+
+# Iniciar servidor de desarrollo
+php artisan serve
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📚 Estructura del Proyecto</h2>
+            <div class="code-block">
+app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── FincaController.php
+│   │   └── PropietarioController.php
+│   └── Requests/
+│       ├── FincaRequest.php
+│       └── PropietarioRequest.php
+├── Models/
+│   ├── Finca.php
+│   └── Propietario.php
+database/
+└── migrations/
+    ├── create_propietarios_table.php
+    └── create_fincas_table.php
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔗 Endpoints API</h2>
+            <div class="code-block">
+# Propietarios
+GET    /api/propietarios     # Listar propietarios
+POST   /api/propietarios     # Crear propietario
+GET    /api/propietarios/{id} # Ver propietario
+PUT    /api/propietarios/{id} # Actualizar propietario
+DELETE /api/propietarios/{id} # Eliminar propietario
+
+# Fincas
+GET    /api/fincas          # Listar fincas
+POST   /api/fincas          # Crear finca
+GET    /api/fincas/{id}     # Ver finca
+PUT    /api/fincas/{id}     # Actualizar finca
+DELETE /api/fincas/{id}     # Eliminar finca
+            </div>
+        </div>
+
+        <div class="alert">
+            <strong>⚠️ Nota:</strong> Este proyecto requiere PHP 8.1+, Composer y una base de datos MySQL/PostgreSQL para funcionar correctamente.
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="https://laravel.com/docs" class="btn" target="_blank">📖 Documentación Laravel</a>
+            <a href="https://github.com" class="btn btn-secondary" target="_blank">📁 Ver Código Fuente</a>
+        </div>
+    </div>
+</body>
+</html>
