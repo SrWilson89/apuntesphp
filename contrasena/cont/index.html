@@ -3,198 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de Contraseñas</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Generador de Contraseñas Seguras</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #333; }
+        form { display: flex; flex-direction: column; gap: 15px; }
+        label { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        input[type="number"], input[type="text"] { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        button { padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; transition: background-color 0.3s ease; }
+        button:hover { background-color: #0056b3; }
+        .result-box { margin-top: 20px; padding: 15px; border: 1px dashed #007bff; border-radius: 5px; background-color: #eaf6ff; }
+        .result-box p { margin: 5px 0; }
+        .error-message { color: red; font-weight: bold; margin-top: 10px; }
+        .strength-bar-container { width: 100%; background-color: #f3f3f3; border-radius: 5px; margin-top: 10px; overflow: hidden; }
+        .strength-bar { height: 20px; width: 0%; background-color: #4CAF50; text-align: center; line-height: 20px; color: white; font-weight: bold; transition: width 0.5s ease; }
+        .strength-score-label { margin-top: 5px; font-weight: bold; }
+        .feedback-list, .suggestions-list { list-style-type: disc; margin-left: 20px; }
+        .feedback-list li, .suggestions-list li { margin-bottom: 5px; }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="card">
-            <h1>🔐 Generador de Contraseñas</h1>
-            
-            <form method="POST" action="generate.php" class="form">
-                <div class="form-group">
-                    <label for="length">Longitud de la contraseña:</label>
-                    <input type="number" id="length" name="length" min="4" max="128" value="12" required>
-                </div>
+    <h1>Generador de Contraseñas Seguras</h1>
 
-                <div class="form-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="uppercase" checked>
-                        <span class="checkmark"></span>
-                        Incluir mayúsculas (A-Z)
-                    </label>
-                </div>
+    <form id="passwordForm" action="generate.php" method="POST">
+        <label for="length">Longitud de la Contraseña:</label>
+        <input type="number" id="length" name="length" min="4" max="128" value="12">
 
-                <div class="form-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="lowercase" checked>
-                        <span class="checkmark"></span>
-                        Incluir minúsculas (a-z)
-                    </label>
-                </div>
+        <div>
+            <label>
+                <input type="checkbox" name="uppercase" checked>
+                Incluir Mayúsculas (A-Z)
+            </label>
+            <label>
+                <input type="checkbox" name="lowercase" checked>
+                Incluir Minúsculas (a-z)
+            </label>
+            <label>
+                <input type="checkbox" name="numbers" checked>
+                Incluir Números (0-9)
+            </label>
+            <label>
+                <input type="checkbox" name="symbols">
+                Incluir Símbolos (!@#$...)
+            </label>
+        </div>
 
-                <div class="form-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="numbers" checked>
-                        <span class="checkmark"></span>
-                        Incluir números (0-9)
-                    </label>
-                </div>
+        <button type="submit">Generar Contraseña</button>
+    </form>
 
-                <div class="form-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" name="symbols">
-                        <span class="checkmark"></span>
-                        Incluir símbolos (!@#$%^&*)
-                    </label>
-                </div>
-
-                <button type="submit" class="generate-btn">Generar Contraseña</button>
-            </form>
-
-            <?php if (isset($_GET['password'])): ?>
-                <div class="result">
-                    <h3>Contraseña generada:</h3>
-                    <div class="password-output">
-                        <input type="text" value="<?php echo htmlspecialchars($_GET['password']); ?>" readonly class="password-field" id="passwordField">
-                        <button type="button" onclick="copyToClipboard()" class="copy-btn" id="copyBtn">📋 Copiar</button>
-                    </div>
-                    <div class="password-info">
-                        <p>Longitud: <?php echo strlen($_GET['password']); ?> caracteres</p>
-                        <div class="strength-meter">
-                            <div class="strength-bar" id="strengthBar"></div>
-                        </div>
-                        <p class="strength-text" id="strengthText"></p>
-                    </div>
-                </div>
-            <?php endif; ?>
-
-            <?php if (isset($_GET['error'])): ?>
-                <div class="error">
-                    <p><?php echo htmlspecialchars($_GET['error']); ?></p>
-                </div>
-            <?php endif; ?>
+    <div id="result" class="result-box" style="display: none;">
+        <p><strong>Contraseña Generada:</strong> <span id="generatedPassword"></span></p>
+        <p><strong>Fuerza:</strong> <span id="passwordStrength"></span></p>
+        <div class="strength-bar-container">
+            <div id="strengthBar" class="strength-bar"></div>
+        </div>
+        <p class="strength-score-label">Puntuación: <span id="strengthScore"></span>/100</p>
+        <p>Entropía: <span id="passwordEntropy"></span> bits</p>
+        
+        <div id="feedbackSection" style="display:none;">
+            <h4>Feedback:</h4>
+            <ul id="feedbackList" class="feedback-list"></ul>
+        </div>
+        <div id="suggestionsSection" style="display:none;">
+            <h4>Sugerencias para mejorar:</h4>
+            <ul id="suggestionsList" class="suggestions-list"></ul>
         </div>
     </div>
 
+    <p id="errorMessage" class="error-message" style="display: none;"></p>
+
     <script>
-        // Función para copiar al portapapeles
-        function copyToClipboard() {
-            const passwordField = document.getElementById('passwordField');
-            passwordField.select();
-            passwordField.setSelectionRange(0, 99999);
-            
-            try {
-                document.execCommand('copy');
-                
-                const copyBtn = document.getElementById('copyBtn');
-                const originalText = copyBtn.innerHTML;
-                copyBtn.innerHTML = '✅ Copiado!';
-                
-                setTimeout(() => {
-                    copyBtn.innerHTML = originalText;
-                }, 2000);
-            } catch (err) {
-                console.error('Error al copiar: ', err);
-                alert('No se pudo copiar la contraseña');
-            }
-        }
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('passwordForm');
+            const resultBox = document.getElementById('result');
+            const errorMessageElem = document.getElementById('errorMessage');
 
-        // Función para evaluar la fuerza de la contraseña
-        function evaluatePasswordStrength(password) {
-            let score = 0;
-            let feedback = [];
+            // Elementos de resultado
+            const generatedPasswordElem = document.getElementById('generatedPassword');
+            const passwordStrengthElem = document.getElementById('passwordStrength');
+            const strengthBar = document.getElementById('strengthBar');
+            const strengthScoreElem = document.getElementById('strengthScore');
+            const passwordEntropyElem = document.getElementById('passwordEntropy');
+            const feedbackSection = document.getElementById('feedbackSection');
+            const feedbackList = document.getElementById('feedbackList');
+            const suggestionsSection = document.getElementById('suggestionsSection');
+            const suggestionsList = document.getElementById('suggestionsList');
 
-            // Longitud
-            if (password.length >= 8) score += 25;
-            if (password.length >= 12) score += 25;
-            
-            // Tipos de caracteres
-            if (/[a-z]/.test(password)) score += 10;
-            if (/[A-Z]/.test(password)) score += 10;
-            if (/[0-9]/.test(password)) score += 15;
-            if (/[^A-Za-z0-9]/.test(password)) score += 15;
+            // Función para mostrar resultados
+            function displayResults(data) {
+                generatedPasswordElem.textContent = data.password;
+                passwordStrengthElem.textContent = data.strength;
+                strengthScoreElem.textContent = data.score;
+                passwordEntropyElem.textContent = data.entropy;
 
-            // Determinar nivel de seguridad
-            let level = '';
-            let color = '';
-            
-            if (score < 30) {
-                level = 'Débil';
-                color = '#ff4757';
-            } else if (score < 60) {
-                level = 'Regular';
-                color = '#ffa502';
-            } else if (score < 90) {
-                level = 'Fuerte';
-                color = '#2ed573';
-            } else {
-                level = 'Muy Fuerte';
-                color = '#1e90ff';
-            }
+                // Actualizar barra de fuerza
+                strengthBar.style.width = data.score + '%';
+                if (data.score < 40) strengthBar.style.backgroundColor = '#f44336'; // Rojo
+                else if (data.score < 60) strengthBar.style.backgroundColor = '#ff9800'; // Naranja
+                else if (data.score < 80) strengthBar.style.backgroundColor = '#ffeb3b'; // Amarillo
+                else if (data.score < 95) strengthBar.style.backgroundColor = '#8bc34a'; // Verde-claro
+                else strengthBar.style.backgroundColor = '#4CAF50'; // Verde
 
-            return { score, level, color };
-        }
+                // Mostrar feedback y sugerencias
+                feedbackList.innerHTML = '';
+                suggestionsList.innerHTML = '';
 
-        // Mostrar medidor de fuerza si existe una contraseña
-        window.addEventListener('load', function() {
-            const passwordField = document.getElementById('passwordField');
-            if (passwordField) {
-                const password = passwordField.value;
-                const strength = evaluatePasswordStrength(password);
-                
-                const strengthBar = document.getElementById('strengthBar');
-                const strengthText = document.getElementById('strengthText');
-                
-                if (strengthBar && strengthText) {
-                    strengthBar.style.width = strength.score + '%';
-                    strengthBar.style.backgroundColor = strength.color;
-                    strengthText.textContent = 'Seguridad: ' + strength.level;
-                    strengthText.style.color = strength.color;
+                if (data.feedback && data.feedback.length > 0) {
+                    data.feedback.forEach(item => {
+                        const li = document.createElement('li');
+                        li.textContent = item;
+                        feedbackList.appendChild(li);
+                    });
+                    feedbackSection.style.display = 'block';
+                } else {
+                    feedbackSection.style.display = 'none';
                 }
-            }
-        });
 
-        // Validación del formulario antes de enviar
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.querySelector('.form');
-            if (form) {
-                form.addEventListener('submit', function(e) {
-                    const checkboxes = form.querySelectorAll('input[type="checkbox"]');
-                    const checked = Array.from(checkboxes).some(cb => cb.checked);
-                    
-                    if (!checked) {
-                        e.preventDefault();
-                        alert('Debes seleccionar al menos un tipo de carácter.');
-                        return false;
+                if (data.suggestions && data.suggestions.length > 0) {
+                    data.suggestions.forEach(item => {
+                        const li = document.createElement('li');
+                        li.textContent = item;
+                        suggestionsList.appendChild(li);
+                    });
+                    suggestionsSection.style.display = 'block';
+                } else {
+                    suggestionsSection.style.display = 'none';
+                }
+
+                resultBox.style.display = 'block';
+                errorMessageElem.style.display = 'none';
+            }
+
+            // Función para mostrar errores
+            function displayError(message) {
+                errorMessageElem.textContent = message;
+                errorMessageElem.style.display = 'block';
+                resultBox.style.display = 'none';
+            }
+
+            // Manejar la presentación inicial si hay parámetros en la URL (redirección tradicional)
+            const params = new URLSearchParams(window.location.search);
+            if (params.has('password')) {
+                const password = params.get('password');
+                const strength = params.get('strength') || 'N/A';
+                const score = params.get('score') || 0;
+                const entropy = params.get('entropy') || 'N/A';
+
+                // Simular la estructura de datos que vendría de AJAX
+                const urlData = {
+                    password: password,
+                    strength: strength,
+                    score: parseInt(score),
+                    entropy: parseFloat(entropy).toFixed(2), // Formatear para consistencia
+                    feedback: [], // No tenemos feedback detallado por URL
+                    suggestions: [] // No tenemos sugerencias detalladas por URL
+                };
+                displayResults(urlData);
+            } else if (params.has('error')) {
+                displayError(params.get('error'));
+            }
+
+            // Manejar el envío del formulario con AJAX
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault(); // Evitar el envío normal del formulario
+
+                const formData = new FormData(form);
+
+                try {
+                    const response = await fetch('generate.php', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest' // Para que PHP detecte que es AJAX
+                        }
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        displayResults(data);
+                    } else {
+                        displayError(data.error || 'Error desconocido al generar la contraseña.');
                     }
-                });
-            }
+                } catch (error) {
+                    console.error('Error:', error);
+                    displayError('Error al conectar con el servidor. Por favor, inténtalo de nuevo.');
+                }
+            });
         });
-
-        // Función para generar contraseña en tiempo real (opcional)
-        function generatePreview() {
-            const length = document.getElementById('length').value;
-            const uppercase = document.querySelector('input[name="uppercase"]').checked;
-            const lowercase = document.querySelector('input[name="lowercase"]').checked;
-            const numbers = document.querySelector('input[name="numbers"]').checked;
-            const symbols = document.querySelector('input[name="symbols"]').checked;
-            
-            let characters = '';
-            if (uppercase) characters += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            if (lowercase) characters += 'abcdefghijklmnopqrstuvwxyz';
-            if (numbers) characters += '0123456789';
-            if (symbols) characters += '!@#$%^&*()_+-=[]{}|;:,.<>?';
-            
-            if (characters === '') return;
-            
-            let password = '';
-            for (let i = 0; i < length; i++) {
-                password += characters.charAt(Math.floor(Math.random() * characters.length));
-            }
-            
-            return password;
-        }
     </script>
 </body>
 </html>
