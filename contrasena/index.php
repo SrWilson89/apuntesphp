@@ -36,6 +36,7 @@ require_once 'password_generator.php';
                 <label for="include_symbols">Incluir Símbolos (!@#$...)</label>
             </div>
             <button type="submit" class="generate-button">Generar Contraseña</button>
+            
         </form>
 
         <?php if (!empty($password)): ?>
@@ -45,7 +46,19 @@ require_once 'password_generator.php';
                 <button class="copy-button" onclick="copyPassword()">Copiar</button>
             </div>
         <?php endif; ?>
+        <?php
+        // En 3raya/index.php, ajedrez/index.php, etc.
+
+        // ... Tu código PHP
+
+        // Incluir el footer.php que está un nivel arriba
+        include '../footer.php';
+
+        // O, si quieres asegurarte de que solo se incluya una vez y parar la ejecución si no se encuentra:
+        // require_once '../footer.php';
+        ?>
     </div>
+    
 
     <script>
         function copyPassword() {

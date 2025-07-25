@@ -6,20 +6,25 @@ class CalculatorState {
     public $display = '0';
     public $operation = '';
     public $first_number = '';
+    public $last_result = '0'; // Store the last result after '='
     public $waiting_for_number = false;
     public $error = false;
+    public $expression = []; // Store tokens for current operation
     
     public function reset() {
         $this->display = '0';
         $this->operation = '';
         $this->first_number = '';
+        $this->last_result = '0';
         $this->waiting_for_number = false;
         $this->error = false;
+        $this->expression = [];
     }
     
     public function clearEntry() {
         $this->display = '0';
         $this->error = false;
+        $this->expression = [];
     }
 }
 
@@ -42,14 +47,12 @@ function processInput($input, CalculatorState $state) {
         $state->reset();
     } elseif ($input == 'CE') {
         $state->clearEntry();
-    } elseif (in_array($input, ['+', '-', '*', '/', '%'])) {
+    } elseif (in_array($input, ['+', '-', '*', '/'])) {
         handleOperation($input, $state);
     } elseif ($input == '=') {
         handleEquals($state);
     } elseif ($input == '.') {
         handleDecimalPoint($state);
-    } elseif ($input == '+/-') {
-        handleSignChange($state);
     } elseif (is_numeric($input)) {
         handleNumberInput($input, $state);
     }
@@ -59,27 +62,22 @@ function processInput($input, CalculatorState $state) {
 function handleOperation($op, CalculatorState $state) {
     if ($state->error) return;
     
-    if ($state->operation != '' && !$state->waiting_for_number) {
-        $result = calculate((float)$state->first_number, (float)$state->display, $state->operation);
-        if ($result === false) {
-            $state->display = 'Error';
-            $state->error = true;
-            return;
-        }
-        $state->display = formatResult($result);
-        $state->first_number = $result;
-    } else {
+    if ($state->display != '0') {
         $state->first_number = $state->display;
+    } elseif ($state->last_result != '0') {
+        $state->first_number = $state->last_result;
     }
     
     $state->operation = $op;
+    $state->display = '0';
     $state->waiting_for_number = true;
 }
 
 function handleEquals(CalculatorState $state) {
-    if ($state->error || $state->operation == '' || $state->first_number === '') return;
+    if ($state->error || $state->operation == '') return;
     
-    $result = calculate((float)$state->first_number, (float)$state->display, $state->operation);
+    $second_number = $state->display != '0' ? $state->display : '0';
+    $result = calculate((float)$state->first_number, (float)$second_number, $state->operation);
     if ($result === false) {
         $state->display = 'Error';
         $state->error = true;
@@ -87,6 +85,7 @@ function handleEquals(CalculatorState $state) {
     }
     
     $state->display = formatResult($result);
+    $state->last_result = $state->display; // Save the result
     $state->operation = '';
     $state->first_number = '';
     $state->waiting_for_number = false;
@@ -100,16 +99,6 @@ function handleDecimalPoint(CalculatorState $state) {
         $state->waiting_for_number = false;
     } elseif (strpos($state->display, '.') === false) {
         $state->display .= '.';
-    }
-}
-
-function handleSignChange(CalculatorState $state) {
-    if ($state->error) return;
-    
-    if ($state->display != '0') {
-        $state->display = $state->display[0] == '-' ? 
-            substr($state->display, 1) : 
-            '-' . $state->display;
     }
 }
 
@@ -132,17 +121,14 @@ function calculate($num1, $num2, $op) {
         case '/': 
             if ($num2 == 0) return false;
             return $num1 / $num2;
-        case '%': return $num1 * ($num2 / 100);
         default: return false;
     }
 }
 
 function formatResult($result) {
-    // Limitar a 10 decimales y eliminar ceros innecesarios
     $formatted = number_format($result, 10, '.', '');
     $formatted = rtrim($formatted, '0');
     $formatted = rtrim($formatted, '.');
-    
     return $formatted !== '' ? $formatted : '0';
 }
 ?>
@@ -151,255 +137,117 @@ function formatResult($result) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora PHP Avanzada</title>
+    <title>Calculadora</title>
     <style>
-        :root {
-            --primary-color: #4a6bff;
-            --secondary-color: #ff6b6b;
-            --accent-color: #00c853;
-            --dark-color: #2d3748;
-            --light-color: #f8f9fa;
-            --shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            --transition: all 0.3s ease;
-        }
-
-        * {
+        body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px;
+            background: linear-gradient(135deg, #6b5b95, #a17fff);
+            font-family: Arial, sans-serif;
         }
-
         .calculator {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
+            background: #4a4063;
             border-radius: 20px;
-            padding: 25px;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            width: 100%;
-            max-width: 400px;
-            overflow: hidden;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            width: 300px;
         }
-
-        .display-container {
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        .operation-display {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1rem;
-            height: 20px;
-        }
-
         .display {
-            background: rgba(0, 0, 0, 0.7);
+            background: #2d2a3a;
             color: white;
-            padding: 25px 20px 20px;
-            border-radius: 15px;
+            font-size: 2.5em;
             text-align: right;
-            font-size: 2.5rem;
-            font-weight: 300;
-            min-height: 100px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            min-height: 60px;
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            word-break: break-all;
-            overflow: hidden;
-            transition: var(--transition);
         }
-
         .buttons {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
+            gap: 10px;
         }
-
         button {
-            padding: 18px 0;
-            font-size: 1.3rem;
-            font-weight: 500;
+            padding: 20px;
+            font-size: 1.2em;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             cursor: pointer;
-            transition: var(--transition);
-            background: rgba(255, 255, 255, 0.9);
-            color: var(--dark-color);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            user-select: none;
-            position: relative;
-            overflow: hidden;
+            background: #ffffff;
+            color: #2d2a3a;
+            transition: background 0.3s, transform 0.1s;
         }
-
-        button::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 5px;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.5);
-            opacity: 0;
-            border-radius: 100%;
-            transform: scale(1, 1) translate(-50%, -50%);
-            transform-origin: 50% 50%;
-        }
-
-        button:active::after {
-            animation: ripple 0.6s ease-out;
-        }
-
-        @keyframes ripple {
-            0% {
-                transform: scale(0, 0);
-                opacity: 0.5;
-            }
-            100% {
-                transform: scale(20, 20);
-                opacity: 0;
-            }
-        }
-
         button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            background: #e0e0e0;
+            transform: scale(1.05);
         }
-
         button:active {
-            transform: translateY(0);
+            transform: scale(0.95);
         }
-
-        .operator {
-            background: linear-gradient(135deg, var(--primary-color), #3a56e8);
-            color: white;
-        }
-
-        .operator:hover {
-            background: linear-gradient(135deg, #3a56e8, #2a46d8);
-        }
-
-        .equals {
-            background: linear-gradient(135deg, var(--accent-color), #00b14a);
-            color: white;
-        }
-
-        .equals:hover {
-            background: linear-gradient(135deg, #00b14a, #009a40);
-        }
-
         .clear {
-            background: linear-gradient(135deg, var(--secondary-color), #e85555);
+            background: #ff6b6b;
             color: white;
         }
-
         .clear:hover {
-            background: linear-gradient(135deg, #e85555, #d84545);
+            background: #ff8787;
         }
-
+        .operator {
+            background: #6b5b95;
+            color: white;
+        }
+        .operator:hover {
+            background: #8a7ab7;
+        }
+        .equals {
+            background: #4CAF50;
+            color: white;
+        }
+        .equals:hover {
+            background: #66BB6A;
+        }
         .zero {
             grid-column: span 2;
         }
-
-        .error {
-            color: #ff4444;
-            animation: shake 0.5s;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-            20%, 40%, 60%, 80% { transform: translateX(5px); }
-        }
-
         h1 {
-            text-align: center;
             color: white;
+            text-align: center;
             margin-bottom: 20px;
-            font-size: 1.8rem;
-            font-weight: 500;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .memory-indicator {
-            position: absolute;
-            top: 10px;
-            left: 20px;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 400px) {
-            .calculator {
-                padding: 15px;
-            }
-            
-            button {
-                padding: 15px 0;
-                font-size: 1.1rem;
-            }
-            
-            .display {
-                font-size: 2rem;
-                min-height: 80px;
-            }
+            font-size: 1.5em;
         }
     </style>
 </head>
 <body>
     <div class="calculator">
-        <h1>Calculadora Avanzada</h1>
-        
-        <div class="display-container">
-            <div class="operation-display">
-                <?php 
-                if ($state->operation != '') {
-                    echo htmlspecialchars($state->first_number) . ' ' . htmlspecialchars($state->operation);
-                }
-                ?>
-            </div>
-            <div class="display <?php echo $state->error ? 'error' : '' ?>">
-                <?php echo htmlspecialchars($state->display) ?>
-            </div>
+        <h1>Calculadora</h1>
+        <div class="display">
+            <?php echo htmlspecialchars($state->display); ?>
         </div>
-        
         <form method="post" class="buttons">
             <button type="submit" name="input" value="C" class="clear">C</button>
-            <button type="submit" name="input" value="CE" class="clear">CE</button>
-            <button type="submit" name="input" value="%" class="operator">%</button>
-            <button type="submit" name="input" value="/" class="operator">÷</button>
-            
+            <button type="submit" name="input" value="(" class="operator">(</button>
+            <button type="submit" name="input" value=")" class="operator">)</button>
+            <button type="submit" name="input" value="+" class="operator">+</button>
             <button type="submit" name="input" value="7">7</button>
             <button type="submit" name="input" value="8">8</button>
             <button type="submit" name="input" value="9">9</button>
             <button type="submit" name="input" value="*" class="operator">×</button>
-            
             <button type="submit" name="input" value="4">4</button>
             <button type="submit" name="input" value="5">5</button>
             <button type="submit" name="input" value="6">6</button>
             <button type="submit" name="input" value="-" class="operator">-</button>
-            
             <button type="submit" name="input" value="1">1</button>
             <button type="submit" name="input" value="2">2</button>
             <button type="submit" name="input" value="3">3</button>
-            <button type="submit" name="input" value="+" class="operator" style="grid-row: span 2;">+</button>
-            
-            <button type="submit" name="input" value="+/-">+/-</button>
-            <button type="submit" name="input" value="0">0</button>
+            <button type="submit" name="input" value="/" class="operator">÷</button>
+            <button type="submit" name="input" value="0" class="zero">0</button>
             <button type="submit" name="input" value=".">.</button>
-            
             <button type="submit" name="input" value="=" class="equals">=</button>
         </form>
         <?php
@@ -414,22 +262,5 @@ function formatResult($result) {
         // require_once '../footer.php';
         ?>
     </div>
-    
-    <script>
-        // Mejora la experiencia táctil en dispositivos móviles
-        document.addEventListener('touchstart', function() {}, {passive: true});
-        
-        // Efecto de retroalimentación táctil
-        const buttons = document.querySelectorAll('button');
-        buttons.forEach(button => {
-            button.addEventListener('touchstart', function() {
-                this.classList.add('active');
-            });
-            
-            button.addEventListener('touchend', function() {
-                this.classList.remove('active');
-            });
-        });
-    </script>
 </body>
-</html> 
+</html>

@@ -1,20 +1,20 @@
-{"id_pregunta":0,"pregunta":"\u00bfEsta es mi pregunta de prueba n\u00famero 1?","respuestas":["Respuesta A","Respuesta B","Respuesta C","Respuesta D"],"correcta":1}
-{"id_pregunta":0,"pregunta":"\u00bfEsta es mi pregunta de prueba n\u00famero 2?","respuestas":["Respuesta A","Respuesta B","Respuesta C","Respuesta D"],"correcta":1}
-{"id_pregunta":0,"pregunta":"\u00bfEsta es mi pregunta de prueba n\u00famero 3?","respuestas":["Respuesta A","Respuesta B","Respuesta C","Respuesta D"],"correcta":1}
-{"id_pregunta":0,"pregunta":"\u00bfEsta es mi pregunta de prueba n\u00famero 4?","respuestas":["Respuesta A","Respuesta B","Respuesta C","Respuesta D"],"correcta":1}
-{"id_pregunta":0,"pregunta":"\u00bfEsta es mi pregunta de prueba n\u00famero 5?","respuestas":["Respuesta A","Respuesta B","Respuesta C","Respuesta D"],"correcta":1}
-{"id_pregunta":0,"pregunta":"\u00bfEsta es mi pregunta de prueba n\u00famero 6?","respuestas":["Respuesta A","Respuesta B","Respuesta C","Respuesta D"],"correcta":1}
-{"id_pregunta":0,"pregunta":"\u00bfEsta es mi pregunta de prueba n\u00famero 7?","respuestas":["Respuesta A","Respuesta B","Respuesta C","Respuesta D"],"correcta":1}
-{"id_pregunta":0,"pregunta":"\u00bfEsta es mi pregunta de prueba n\u00famero 8?","respuestas":["Respuesta A","Respuesta B","Respuesta C","Respuesta D"],"correcta":1}
-{"id_pregunta":0,"pregunta":"\u00bfEsta es mi pregunta de prueba n\u00famero 9?","respuestas":["Respuesta A","Respuesta B","Respuesta C","Respuesta D"],"correcta":1}
-{"id_pregunta":0,"pregunta":"\u00bfEsta es mi pregunta de prueba n\u00famero 10?","respuestas":["Respuesta A","Respuesta B","Respuesta C","Respuesta D"],"correcta":1}
-{"id_pregunta":10,"pregunta":"\u00bfEsta es mi pregunta de prueba n\u00famero 1?","respuestas":["Respuesta A","Respuesta B","Respuesta C","Respuesta D"],"correcta":1}
-{"id_pregunta":11,"pregunta":"\u00bfEsta es mi pregunta de prueba n\u00famero 2?","respuestas":["Respuesta A","Respuesta B","Respuesta C","Respuesta D"],"correcta":1}
-{"id_pregunta":12,"pregunta":"\u00bfEsta es mi pregunta de prueba n\u00famero 3?","respuestas":["Respuesta A","Respuesta B","Respuesta C","Respuesta D"],"correcta":1}
-{"id_pregunta":13,"pregunta":"\u00bfEsta es mi pregunta de prueba n\u00famero 4?","respuestas":["Respuesta A","Respuesta B","Respuesta C","Respuesta D"],"correcta":1}
-{"id_pregunta":14,"pregunta":"\u00bfEsta es mi pregunta de prueba n\u00famero 5?","respuestas":["Respuesta A","Respuesta B","Respuesta C","Respuesta D"],"correcta":1}
-{"id_pregunta":15,"pregunta":"\u00bfEsta es mi pregunta de prueba n\u00famero 6?","respuestas":["Respuesta A","Respuesta B","Respuesta C","Respuesta D"],"correcta":1}
-{"id_pregunta":16,"pregunta":"\u00bfEsta es mi pregunta de prueba n\u00famero 7?","respuestas":["Respuesta A","Respuesta B","Respuesta C","Respuesta D"],"correcta":1}
-{"id_pregunta":17,"pregunta":"\u00bfEsta es mi pregunta de prueba n\u00famero 8?","respuestas":["Respuesta A","Respuesta B","Respuesta C","Respuesta D"],"correcta":1}
-{"id_pregunta":18,"pregunta":"\u00bfEsta es mi pregunta de prueba n\u00famero 9?","respuestas":["Respuesta A","Respuesta B","Respuesta C","Respuesta D"],"correcta":1}
-{"id_pregunta":19,"pregunta":"\u00bfEsta es mi pregunta de prueba n\u00famero 10?","respuestas":["Respuesta A","Respuesta B","Respuesta C","Respuesta D"],"correcta":1}
+{"id_pregunta":0,"pregunta":"¿Cuál es el color del cielo en un día despejado?","respuestas":["Verde","Azul","Rojo","Amarillo"],"correcta":1}
+{"id_pregunta":1,"pregunta":"¿Cuántos dedos hay en una mano?","respuestas":["Tres","Cuatro","Cinco","Seis"],"correcta":2}
+{"id_pregunta":2,"pregunta":"¿Qué animal ladra?","respuestas":["Gato","Pájaro","Perro","Pez"],"correcta":2}
+{"id_pregunta":3,"pregunta":"¿Qué número sigue al 7?","respuestas":["5","6","8","9"],"correcta":2}
+{"id_pregunta":4,"pregunta":"¿Dónde vive un pez?","respuestas":["En la tierra","En el aire","En el agua","En el árbol"],"correcta":2}
+{"id_pregunta":5,"pregunta":"¿Qué fruta es roja y redonda?","respuestas":["Plátano","Manzana","Naranja","Pera"],"correcta":1}
+{"id_pregunta":6,"pregunta":"¿Cuál es el sol del sistema solar?","respuestas":["Luna","Estrella","Planeta","Cometa"],"correcta":1}
+{"id_pregunta":7,"pregunta":"¿Qué usamos para escribir?","respuestas":["Cuchara","Tenedor","Lápiz","Zapatilla"],"correcta":2}
+{"id_pregunta":8,"pregunta":"¿Cuántas patas tiene un perro?","respuestas":["Dos","Tres","Cuatro","Cinco"],"correcta":2}
+{"id_pregunta":9,"pregunta":"¿Qué se usa para ver películas?","respuestas":["Libro","Televisor","Radio","Vaso"],"correcta":1}
+{"id_pregunta":10,"pregunta":"¿Cuál es el nombre de nuestro planeta?","respuestas":["Marte","Júpiter","Tierra","Venus"],"correcta":2}
+{"id_pregunta":11,"pregunta":"¿Qué hace un pájaro?","respuestas":["Nadar","Caminar","Volar","Correr"],"correcta":2}
+{"id_pregunta":12,"pregunta":"¿Qué bebida se obtiene de la vaca?","respuestas":["Jugo","Leche","Refresco","Café"],"correcta":1}
+{"id_pregunta":13,"pregunta":"¿Qué número es el doble de 3?","respuestas":["4","5","6","7"],"correcta":2}
+{"id_pregunta":14,"pregunta":"¿Dónde cocinamos la comida?","respuestas":["Dormitorio","Baño","Cocina","Jardín"],"correcta":2}
+{"id_pregunta":15,"pregunta":"¿Qué estación es después del verano?","respuestas":["Primavera","Invierno","Otoño","Verano"],"correcta":2}
+{"id_pregunta":16,"pregunta":"¿Qué se usa para peinarse?","respuestas":["Cepillo de dientes","Peine","Cuchillo","Tijeras"],"correcta":1}
+{"id_pregunta":17,"pregunta":"¿Cuántos días tiene una semana?","respuestas":["Cinco","Seis","Siete","Ocho"],"correcta":2}
+{"id_pregunta":18,"pregunta":"¿Qué animal es conocido por maullar?","respuestas":["Perro","Gato","Vaca","Oveja"],"correcta":1}
+{"id_pregunta":19,"pregunta":"¿Qué es dulce y se derrite?","respuestas":["Pan","Caramelo","Hielo","Chocolate"],"correcta":3}
